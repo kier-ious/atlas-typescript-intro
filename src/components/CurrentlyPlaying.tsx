@@ -2,18 +2,29 @@ import { CoverArt } from './CoverArt';
 import { PlayControls } from './PlayControls';
 import { VolumeControl } from './VolumeControl';
 
+interface Song {
+  title: string;
+  artist: string;
+  cover: string;
+}
 
-export const CurrentlyPlaying = () => {
+interface CurrentlyPlayingProps {
+  currentSong: Song;
+}
+
+export const CurrentlyPlaying: React.FC<CurrentlyPlayingProps> = ({ currentSong }) => {
+  if (!currentSong) {
+    return <div className="font-primary text-2xl font-bold mb-4">Loading...</div>;
+  }
   return (
     <div className="flex flex-col items-center p-4 rounded-lg space-y-4">
       <div className="flex flex-col items-start p-4 rounded-lg space-y-4">
-
         <div className="flex flex-col items-center w-full space-y-2">
-          <CoverArt />
+          <CoverArt coverArtUrl={currentSong.cover}/>
             {/* Song title and artist info */}
             <div className="w-full text-left">
-              <h3 className="font-primary text-lg font-semibold">Painted in Blue</h3>
-                <p className="text-sm text-gray-500">Soul Canvas</p>
+              <h3 className="font-primary text-lg font-semibold">{currentSong.title}</h3>
+                <p className="text-sm text-gray-500">{currentSong.artist}</p>
             </div>
           </div>
 
