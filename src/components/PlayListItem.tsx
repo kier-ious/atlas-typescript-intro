@@ -6,6 +6,7 @@ interface PlayListItemProps {
   artist: string;
   duration: string;
   isPlaying: boolean;
+  bgColor?: string;
   onClick: () => void;
 }
 

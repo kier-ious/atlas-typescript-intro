@@ -10,6 +10,7 @@ export default {
         primary: '#f1f1f1',
         secondary: '#b7ff00',
         accent: '#c0c0c0',
+        bgColor: '#b7ff00',
       },
       fontFamily: {
         primary: ['StretchPro', 'sans-serif'],
