@@ -1,5 +1,3 @@
-import React from 'react'
-
 export const SongTitle = () => {
   return (
     <div className="text-center">

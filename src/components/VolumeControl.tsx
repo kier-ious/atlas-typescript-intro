@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const VolumeControl = () => {
   return (
     <div className="w-full flex items-center space-x-2">

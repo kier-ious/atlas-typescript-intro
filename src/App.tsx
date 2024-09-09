@@ -1,5 +1,4 @@
 import Footer from "./components/Footer";
-import { Playlist } from "./components/Playlist";
 import MusicPlayer from "./MusicPlayer";
 
 

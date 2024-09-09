@@ -1,4 +1,3 @@
-import React from 'react';
 import { PlayListItem } from './PlayListItem';
 
 
@@ -19,7 +18,7 @@ export const Playlist = () => {
   const currentlyPlaying = 'Painted in Blue';
 
   return (
-    <div className="bg-secondary w-full p-6 mx-auto max-w-screen-md rounded-lg shadow-md border border-4 border-accent">
+    <div className="bg-secondary w-full p-6 mx-auto max-w-screen-md rounded-lg shadow-md border border-accent">
       <h1 className="font-primary text-2xl font-bold mb-4">Playlist</h1>
         <ul className="bg-secondary space-y-0">
             {playListInfo.map((song, index) => (
