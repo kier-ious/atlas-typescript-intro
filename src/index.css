@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@font-face {
+  font-family: 'StretchPro';
+  src: url('/public/StretchPro.otf') format('otf'),
+  url('/public/StretchPro.otf') format('otf');
+  font-weight: normal;
+  font-style: normal;
+}
