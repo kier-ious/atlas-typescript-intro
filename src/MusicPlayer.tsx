@@ -64,7 +64,7 @@ export default function MusicPlayer() {
   };
 
   const handleSpeedChange = () => {
-    setSpeed(prevSpeed => (prevSpeed === 1 ? 1.5 : prevSpeed === 2 ? 1.5 : 1));
+    setSpeed(prevSpeed => (prevSpeed === 1 ? 2 : prevSpeed === 2 ? 3 : 1));
   };
 
   const handlePlayPause = () => {
@@ -85,22 +85,22 @@ export default function MusicPlayer() {
                     border-gray-300 flex flex-col md:flex-row items-center
                     md:items-start space-y-6 md:space-y-0 md:space-x-6">
       <div className="w-full md:w-1/2">
-        <CurrentlyPlaying currentSong={currentlyPlaying} onSongSelect={handleSongSelect}/>
+      <CurrentlyPlaying
+          currentSong={currentlyPlaying}
+          onBack={handleBack}
+          onForward={handleForward}
+          speed={speed}
+          onSpeedChange={handleSpeedChange}
+          isPlaying={isPlaying}
+          onPlayPause={handlePlayPause}
+          onShuffle={handleShuffle}
+        />
       </div>
-
       <div className="w-full md:w-1/2">
         <Playlist currentlyPlaying={currentlyPlaying?.title || 'Pick a song!'} onSongSelect={handleSongSelect} playlist={playlist} />
       </div>
 
-      <PlayControls
-        onBack={handleBack}
-        onForward={handleForward}
-        speed={speed}
-        onSpeedChange={handleSpeedChange}
-        isPlaying={isPlaying}
-        onPlayPause={handlePlayPause}
-        onShuffle={handleShuffle}
-      />
+
     </div>
   );
 };
