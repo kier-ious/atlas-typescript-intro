@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { CoverArt } from './CoverArt';
 import { PlayControls } from './PlayControls';
 import { VolumeControl } from './VolumeControl';
@@ -29,8 +29,10 @@ interface CurrentlyPlayingProps {
     onSpeedChange,
     isPlaying,
     onPlayPause,
-    onShuffle
+    onShuffle,
   }) => {
+    const [volume, setVolume] = useState(50);
+
     if (!currentSong) {
       return <div className="font-primary text-2xl font-bold mb-4">Loading...</div>;
     }
@@ -51,20 +53,22 @@ interface CurrentlyPlayingProps {
           <div className="flex justify-center w-full">
             {onShuffle && (
               <PlayControls
-              onBack={onBack}
-              onForward={onForward}
-              speed={speed}
-              onSpeedChange={onSpeedChange}
-              isPlaying={isPlaying}
-              onPlayPause={onPlayPause}
-              onShuffle={onShuffle}
+                onBack={onBack}
+                onForward={onForward}
+                speed={speed}
+                onSpeedChange={onSpeedChange}
+                isPlaying={isPlaying}
+                onPlayPause={onPlayPause}
+                onShuffle={onShuffle}
             />
             )}
           </div>
 
           {/* VolumeControls */}
           <div className="flex justify-center w-full">
-          <VolumeControl volume={someValue} onVolumeChange={(newVolume) => handleVolumeChange(newVolume)} />
+            <VolumeControl
+              volume={volume}
+              onVolumeChange={(newVolume) => setVolume(newVolume)} />
           </div>
       </div>
     </div>

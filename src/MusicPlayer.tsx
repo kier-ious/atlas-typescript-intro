@@ -18,7 +18,7 @@ export default function MusicPlayer() {
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [speed, setSpeed] = useState(1);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [shuffle, setShuffle] = useState(false)
+  const [shuffle, setShuffle] = useState()
 
   useEffect(() => {
     // This fetches current song playing from API and mounts component
@@ -56,9 +56,15 @@ export default function MusicPlayer() {
 
   const handleForward = () => {
     setCurrentSongIndex((prevIndex) => {
-      const newIndex = prevIndex < playlist.length - 1 ? prevIndex + 1 : playlist.length - 1;
-      setCurrentlyPlaying(playlist[newIndex] || null);
-      return newIndex;
+      if (shuffle) {
+        const randomIndex = Math.floor(Math.random() * playlist.length);
+        setCurrentlyPlaying(playlist[randomIndex]);
+        return randomIndex;
+      } else {
+        const newIndex = prevIndex < playlist.length - 1 ? prevIndex + 1 : playlist.length - 1;
+        setCurrentlyPlaying(playlist[newIndex] || null);
+        return newIndex;
+      }
     });
   };
 
@@ -68,11 +74,11 @@ export default function MusicPlayer() {
 
   const handlePlayPause = () => {
     setIsPlaying(prevIsPlaying => !prevIsPlaying);
-  }
+  };
 
   const handleShuffle = () => {
     setShuffle(prevShuffle => !prevShuffle);
-  }
+  };
 
   if (!currentlyPlaying) {
     return <div className="font-primary text-2xl font-bold mb-4">Loading...</div>;
@@ -102,7 +108,6 @@ export default function MusicPlayer() {
           playlist={playlist}
         />
       </div>
-
 
     </div>
   );
