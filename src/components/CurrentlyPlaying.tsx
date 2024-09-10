@@ -11,14 +11,15 @@ interface Song {
 }
 
 interface CurrentlyPlayingProps {
-  currentSong: Song;
+  currentSong: Song | null;
   onBack: () => void;
   onForward: () => void;
-  onShuffle?: () => void;
   speed: number;
   onSpeedChange: () => void;
   isPlaying: boolean;
   onPlayPause: () => void;
+  onShuffle?: () => void;
+  shuffle: boolean;
 }
 
   export const CurrentlyPlaying: FC<CurrentlyPlayingProps> = ({
@@ -30,6 +31,7 @@ interface CurrentlyPlayingProps {
     isPlaying,
     onPlayPause,
     onShuffle,
+    shuffle
   }) => {
     const [volume, setVolume] = useState(50);
 
@@ -60,6 +62,7 @@ interface CurrentlyPlayingProps {
                 isPlaying={isPlaying}
                 onPlayPause={onPlayPause}
                 onShuffle={onShuffle}
+                shuffle={shuffle}
             />
             )}
           </div>

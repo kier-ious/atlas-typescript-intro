@@ -18,7 +18,7 @@ export default function MusicPlayer() {
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [speed, setSpeed] = useState(1);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [shuffle, setShuffle] = useState()
+  const [shuffle, setShuffle] = useState(false);
 
   useEffect(() => {
     // This fetches current song playing from API and mounts component
@@ -99,6 +99,7 @@ export default function MusicPlayer() {
           isPlaying={isPlaying}
           onPlayPause={handlePlayPause}
           onShuffle={handleShuffle}
+          shuffle={shuffle}
         />
       </div>
       <div className="w-full md:w-1/2">

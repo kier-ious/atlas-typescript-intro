@@ -9,6 +9,7 @@ interface PlayControlsProps {
   isPlaying: boolean;
   onPlayPause: () => void;
   onShuffle: () => void;
+  shuffle: boolean;
 }
 
 export const PlayControls: FC<PlayControlsProps> = ({
@@ -19,6 +20,7 @@ export const PlayControls: FC<PlayControlsProps> = ({
   isPlaying,
   onPlayPause,
   onShuffle,
+  shuffle
 }) => {
   return (
     <div className="flex justify-between items-center space-x-4">
@@ -50,11 +52,17 @@ export const PlayControls: FC<PlayControlsProps> = ({
         </svg>
       </button>
 
-      <button className="p-2 border-black rounded" onClick={onShuffle ? onShuffle : undefined}
+      <button className="p-2 border-black rounded" onClick={onShuffle}
       >
+        {shuffle ? (
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
             <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 0 0-3.7-3.7 48.678 48.678 0 0 0-7.324 0 4.006 4.006 0 0 0-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 0 0 3.7 3.7 48.656 48.656 0 0 0 7.324 0 4.006 4.006 0 0 0 3.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3-3 3" />
           </svg>
+        ) : (
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-5">
+            <path d="M10.047 3.062a.75.75 0 0 1 .453.688v12.5a.75.75 0 0 1-1.264.546L5.203 13H2.667a.75.75 0 0 1-.7-.48A6.985 6.985 0 0 1 1.5 10c0-.887.165-1.737.468-2.52a.75.75 0 0 1 .7-.48h2.535l4.033-3.796a.75.75 0 0 1 .811-.142ZM13.78 7.22a.75.75 0 1 0-1.06 1.06L14.44 10l-1.72 1.72a.75.75 0 0 0 1.06 1.06l1.72-1.72 1.72 1.72a.75.75 0 1 0 1.06-1.06L16.56 10l1.72-1.72a.75.75 0 0 0-1.06-1.06L15.5 8.94l-1.72-1.72Z" />
+          </svg>
+        )}
       </button>
   </div>
 );
