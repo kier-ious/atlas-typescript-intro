@@ -3,9 +3,8 @@
 @tailwind utilities;
 @font-face {
   font-family: 'StretchPro';
-  src: url('/public/StretchPro.otf') format('otf'),
-  url('/public/StretchPro.otf') format('otf');
+  src: url('/StretchPro.woff') format('woff'),
+  url('/StretchPro.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
-

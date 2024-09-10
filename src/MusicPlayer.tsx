@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
 import { CurrentlyPlaying } from './components/CurrentlyPlaying';
 import { Playlist } from './components/Playlist';
+import { PlayControls } from './components/PlayControls';
+
 
 interface Song {
+  id: number;
   title: string;
   artist: string;
   duration: string;
@@ -12,7 +15,11 @@ interface Song {
 
 export default function MusicPlayer() {
   const [playlist, setPlaylist] = useState<Song[]>([]);
-  const [currentlyPlaying, setCurrentlyPlaying] = useState<string>('');
+  const [currentlyPlaying, setCurrentlyPlaying] = useState<Song | null>(null);
+  const [currentSongIndex, setCurrentSongIndex] = useState(0);
+  const [speed, setSpeed] = useState(1);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [shuffle, setShuffle] = useState(false)
 
   useEffect(() => {
     // This fetches current song playing from API and mounts component
@@ -23,7 +30,7 @@ export default function MusicPlayer() {
         setPlaylist(data);
 
         if (data.length > 0) {
-          setCurrentlyPlaying(data[0].title);
+          setCurrentlyPlaying(data[0]);
         }
       } catch (error) {
         console.error('Error fetching the playlist:', error);
@@ -33,25 +40,67 @@ export default function MusicPlayer() {
     fetchPlaylist();
   }, []);
 
+
   const handleSongSelect = (title: string) => {
     const selectedSong = playlist.find(song => song.title === title) || null;
     setCurrentlyPlaying(selectedSong);
+    setCurrentSongIndex(playlist.indexOf(selectedSong as Song));
+  };
+
+  const handleBack = () => {
+    setCurrentSongIndex((prevIndex) => {
+      const newIndex = prevIndex > 0 ? prevIndex - 1 : 0;
+      setCurrentlyPlaying(playlist[newIndex] || null);
+      return newIndex;
+    });
+  };
+
+  const handleForward = () => {
+    setCurrentSongIndex((prevIndex) => {
+      const newIndex = prevIndex < playlist.length - 1 ? prevIndex + 1 : playlist.length - 1;
+      setCurrentlyPlaying(playlist[newIndex] || null);
+      return newIndex;
+    });
+  };
+
+  const handleSpeedChange = () => {
+    setSpeed(prevSpeed => (prevSpeed === 1 ? 1.5 : prevSpeed === 2 ? 1.5 : 1));
+  };
+
+  const handlePlayPause = () => {
+    setIsPlaying(prevIsPlaying => !prevIsPlaying);
+  }
+
+  const handleShuffle = () => {
+    setShuffle(prevShuffle => !prevShuffle);
   }
 
   if (!currentlyPlaying) {
     return <div className="font-primary text-2xl font-bold mb-4">Loading...</div>;
   }
+
+
   return (
     <div className="bg-primary p-6 rounded-lg w-full max-w-screen-md mx-auto shadow-md
                     border-gray-300 flex flex-col md:flex-row items-center
                     md:items-start space-y-6 md:space-y-0 md:space-x-6">
       <div className="w-full md:w-1/2">
-        <CurrentlyPlaying currentSong={currentlyPlaying} />
+        <CurrentlyPlaying currentSong={currentlyPlaying} onSongSelect={handleSongSelect}/>
       </div>
 
       <div className="w-full md:w-1/2">
-        <Playlist currentlyPlaying={currentlyPlaying} onSongSelect={handleSongSelect} playlist={playlist}/>
+        <Playlist currentlyPlaying={currentlyPlaying?.title || 'Pick a song!'} onSongSelect={handleSongSelect} playlist={playlist} />
       </div>
+
+      <PlayControls
+        onBack={handleBack}
+        onForward={handleForward}
+        speed={speed}
+        onSpeedChange={handleSpeedChange}
+        isPlaying={isPlaying}
+        onPlayPause={handlePlayPause}
+        onShuffle={handleShuffle}
+      />
     </div>
   );
 };

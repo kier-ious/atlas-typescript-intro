@@ -1,8 +1,10 @@
+import { FC } from 'react';
 import { CoverArt } from './CoverArt';
 import { PlayControls } from './PlayControls';
 import { VolumeControl } from './VolumeControl';
 
 interface Song {
+  id: number;
   title: string;
   artist: string;
   cover: string;
@@ -10,17 +12,30 @@ interface Song {
 
 interface CurrentlyPlayingProps {
   currentSong: Song;
-}
+  onBack: () => void;
+  onForward: () => void;
+  speed: number;
+  onSpeedChange: () => void;
+  isPlaying: boolean;
+  onPlayPause: () => void;}
 
-export const CurrentlyPlaying: React.FC<CurrentlyPlayingProps> = ({ currentSong }) => {
-  if (!currentSong) {
-    return <div className="font-primary text-2xl font-bold mb-4">Loading...</div>;
-  }
+  export const CurrentlyPlaying: FC<CurrentlyPlayingProps> = ({
+    currentSong,
+    onBack,
+    onForward,
+    speed,
+    onSpeedChange,
+    isPlaying,
+    onPlayPause
+  }) => {
+    if (!currentSong) {
+      return <div className="font-primary text-2xl font-bold mb-4">Loading...</div>;
+    }
   return (
     <div className="flex flex-col items-center p-4 rounded-lg space-y-4">
       <div className="flex flex-col items-start p-4 rounded-lg space-y-4">
         <div className="flex flex-col items-center w-full space-y-2">
-          <CoverArt coverArtUrl={currentSong.cover}/>
+          <CoverArt cover={currentSong.cover}/>
             {/* Song title and artist info */}
             <div className="w-full text-left">
               <h3 className="font-primary text-lg font-semibold">{currentSong.title}</h3>
@@ -30,7 +45,14 @@ export const CurrentlyPlaying: React.FC<CurrentlyPlayingProps> = ({ currentSong 
 
           {/* PlayControls */}
           <div className="flex justify-center w-full">
-            <PlayControls />
+            <PlayControls
+              onBack={onBack}
+              onForward={onForward}
+              speed={speed}
+              onSpeedChange={onSpeedChange}
+              isPlaying={isPlaying}
+              onPlayPause={onPlayPause}
+            />
           </div>
 
           {/* VolumeControls */}
