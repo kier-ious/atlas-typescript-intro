@@ -44,7 +44,6 @@ interface CurrentlyPlayingProps {
       <div className="flex flex-col items-start p-4 rounded-lg space-y-4">
         <div className="flex flex-col items-center w-full space-y-2">
           <CoverArt cover={currentSong.cover}/>
-            {/* Song title and artist info */}
             <div className="w-full text-left">
               <h3 className="font-primary text-lg font-semibold">{currentSong.title}</h3>
                 <p className="text-sm text-gray-500">{currentSong.artist}</p>

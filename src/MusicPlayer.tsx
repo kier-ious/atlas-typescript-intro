@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { CurrentlyPlaying } from './components/CurrentlyPlaying';
 import { Playlist } from './components/Playlist';
+import { usePlaylistData } from './hooks/usePlaylistData';
 
 
 interface Song {
@@ -11,9 +12,8 @@ interface Song {
   cover: string;
 }
 
-
 export default function MusicPlayer() {
-  const [playlist, setPlaylist] = useState<Song[]>([]);
+  const { data: playlist, loading } = usePlaylistData();
   const [currentlyPlaying, setCurrentlyPlaying] = useState<Song | null>(null);
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [speed, setSpeed] = useState(1);
@@ -21,24 +21,10 @@ export default function MusicPlayer() {
   const [shuffle, setShuffle] = useState(false);
 
   useEffect(() => {
-    // This fetches current song playing from API and mounts component
-    const fetchPlaylist = async () => {
-      try {
-        const response = await fetch('https://raw.githubusercontent.com/atlas-jswank/atlas-music-player-api/main/playlist')
-        const data: Song[] = await response.json();
-        setPlaylist(data);
-
-        if (data.length > 0) {
-          setCurrentlyPlaying(data[0]);
-        }
-      } catch (error) {
-        console.error('Error fetching the playlist:', error);
-      }
-    };
-
-    fetchPlaylist();
-  }, []);
-
+    if (playlist.length > 0) {
+      setCurrentlyPlaying({...playlist[0], duration: ''});
+    }
+  }, [playlist]);
 
   const handleSongSelect = (title: string) => {
     const selectedSong = playlist.find(song => song.title === title) || null;
