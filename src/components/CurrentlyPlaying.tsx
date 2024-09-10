@@ -14,11 +14,11 @@ interface CurrentlyPlayingProps {
   currentSong: Song;
   onBack: () => void;
   onForward: () => void;
+  onShuffle?: () => void;
   speed: number;
   onSpeedChange: () => void;
   isPlaying: boolean;
   onPlayPause: () => void;
-  onShuffle?: () => void;
 }
 
   export const CurrentlyPlaying: FC<CurrentlyPlayingProps> = ({
@@ -34,7 +34,7 @@ interface CurrentlyPlayingProps {
     if (!currentSong) {
       return <div className="font-primary text-2xl font-bold mb-4">Loading...</div>;
     }
-    
+
   return (
     <div className="flex flex-col items-center p-4 rounded-lg space-y-4">
       <div className="flex flex-col items-start p-4 rounded-lg space-y-4">
@@ -49,7 +49,8 @@ interface CurrentlyPlayingProps {
 
           {/* PlayControls */}
           <div className="flex justify-center w-full">
-            <PlayControls
+            {onShuffle && (
+              <PlayControls
               onBack={onBack}
               onForward={onForward}
               speed={speed}
@@ -58,11 +59,12 @@ interface CurrentlyPlayingProps {
               onPlayPause={onPlayPause}
               onShuffle={onShuffle}
             />
+            )}
           </div>
 
           {/* VolumeControls */}
           <div className="flex justify-center w-full">
-          <VolumeControl />
+          <VolumeControl volume={someValue} onVolumeChange={(newVolume) => handleVolumeChange(newVolume)} />
           </div>
       </div>
     </div>

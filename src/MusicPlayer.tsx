@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { CurrentlyPlaying } from './components/CurrentlyPlaying';
 import { Playlist } from './components/Playlist';
-import { PlayControls } from './components/PlayControls';
 
 
 interface Song {
@@ -97,7 +96,11 @@ export default function MusicPlayer() {
         />
       </div>
       <div className="w-full md:w-1/2">
-        <Playlist currentlyPlaying={currentlyPlaying?.title || 'Pick a song!'} onSongSelect={handleSongSelect} playlist={playlist} />
+        <Playlist
+          currentlyPlaying={String(currentlyPlaying?.id || 0)}
+          onSongSelect={handleSongSelect}
+          playlist={playlist}
+        />
       </div>
 
 

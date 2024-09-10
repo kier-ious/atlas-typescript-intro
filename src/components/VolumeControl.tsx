@@ -1,11 +1,13 @@
-import { FC } from 'react';
+import { useState } from 'react';
 
 interface VolumeControlProps {
   volume: number;
-  onVolumeChange: (newVolume: number) => void;
+  onVolumeChange: (volume: number) => void;
 }
 
-export const VolumeControl: FC<VolumeControlProps> = ({ volume, onVolumeChange }) => {
+const [volume, setVolume] = useState(0.5);
+
+export const VolumeControl: React.FC<VolumeControlProps> = ({ volume, onVolumeChange }) => {
   const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onVolumeChange(Number(event.target.value));
   };
@@ -26,3 +28,5 @@ export const VolumeControl: FC<VolumeControlProps> = ({ volume, onVolumeChange }
     </div>
   );
 };
+
+<VolumeControl volume={volume} onVolumeChange={(newVolume) => setVolume(newVolume)} />
