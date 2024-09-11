@@ -19,6 +19,7 @@ export const usePlaylistData = () => {
       try {
         const response = await fetch('https://raw.githubusercontent.com/atlas-jswank/atlas-music-player-api/main/playlist');
         const fetchedData: Song[] = await response.json();
+        await new Promise(resolve => setTimeout(resolve, 1000));
         setData(fetchedData);
 
         if (fetchedData.length > 0) {
